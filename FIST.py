@@ -53,15 +53,15 @@ def parse_type(smc_type, contract):
     elif smc_type == 'nfl':
         return parse_nfl(contract)
 
-def parse_contract(filename):
+def parse_contract(json):
     try:
-        contract = json.load(open(filename))  # Tries to load the contract
+        contract = json.load(json)  # Tries to load the contract
         smc_type = contract.get('type')
     except:
         return False
 
     if(is_valid(smc_type) is False):  # validate if the contract type is valid
-        return print("Not a valid contract")
+        return False
     
     if parse_type(smc_type=smc_type, contract=contract) is True:
         return contract
